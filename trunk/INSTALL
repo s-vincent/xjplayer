@@ -1,0 +1,26 @@
+Installation
+============
+
+Requirements
+------------
+
+- JDK >= 6.
+
+Build XJPlayer
+--------------
+
+To compile XJPlayer:
+$ ant make
+
+To clean project:
+$ ant clean
+
+To build the documentation:
+$ ant doc
+
+Run XJPlayer
+------------
+
+To run XJPlayer:
+$ ant run
+

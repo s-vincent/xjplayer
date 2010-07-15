@@ -1,0 +1,15 @@
+XJPlayer
+========
+
+XJPlayer is a mediaplayer written in Java and based on Xuggler (http://www.xuggle.com/xuggler).
+
+Installation
+-------------
+
+See INSTALL file.
+
+Contact
+--------
+
+Sebastien Vincent <sebastien.vincent@cppextrem.com>
+
