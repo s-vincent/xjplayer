@@ -1,0 +1,26 @@
+XJPlayer coding style
+=====================
+
+I) Code layout
+--------------
+
+The code has to follow Java code convention (http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html)
+with some additions:
+- Each opening braces (method, class, ...) MUST be on their own line;
+- Use 4 spaces instead of tabs;
+- Use package imports (import mypackage.*;) instead of importing single class.
+
+II) Code organization
+---------------------
+
+The code has to follow these recommendations:
+- Always initialize your variables;
+- Use "final" keyword for pointers and references if they should not been modified in function/method;
+- Put a space before and after operator +/-* i.e. a + b - ((c * 5) / 3);
+- Put an empty line at the end of each file.
+
+Naming has to follow these recommendations:
+- All class member variables name must be prefixed with "m" (mVar).
+
+Each class, member, methods including private and protected ones MUST be documented.
+

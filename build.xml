@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build system -->
+
+<project default="all" name="XJPlayer">
+  <!-- Set some properties here -->
+  <property environment="system" />
+  <dirname property="pwd" file="${ant.file}"/>
+  <property name="appname" value="XJPlayer" />
+  <property name="app" value="${appname}.jar" />
+  <property name="args" value="" />
+  <property name="dst" value="build/classes" />
+  <property name="dst.doc" value="doc/javadoc" />
+  <property name="dst.native" value="build/native" />
+  <property name="dst.native.linux-x86" value="${dst.native}/linux-x86" />
+  <property name="dst.native.linux-x64" value="${dst.native}/linux-x64" />
+  <property name="dst.native.macosx-universal" value="${dst.native}/macosx" />
+  <property name="dst.native.win32" value="${dst.native}/win32" />
+  <property name="dst.native.win64" value="${dst.native}/win64" />
+  <property name="dst.native.freebsd-x86" value="${dst.native}/freebsd-x86" />
+  <property name="dst.native.freebsd-x64" value="${dst.native}/freebsd-x64" />
+  <property name="dst.test" value="build/test" />
+  <property name="src" value="src" />
+  <property name="src.native" value="native" />
+  <property name="src.native.common" value="${src.native}/common" />
+  <property name="src.native.linux" value="${src.native}/linux" />
+  <property name="src.native.macosx" value="${src.native}/macosx" />
+  <property name="src.native.windows" value="${src.native}/windows" />
+  <property name="src.native.freebsd" value="${src.native}/freebsd" />
+  <property name="src.test" value="test" />
+  <property name="lib" value="lib" />
+  <property name="lib.native" value="nativelib" />
+  <property name="resources" value="resources" />
+  <property name="junit.reports" value="junit-reports" />
+  <property name="jdk6.api" value="http://java.sun.com/javase/6/docs/api" />
+  <property name="xuggler.api" value="http://build.xuggle.com/view/Stable/job/xuggler_jdk5_stable/javadoc/java/api" />
+
+  <!-- Setup classpath -->
+  <path id="project.class.path">
+    <pathelement location="${dst}" />
+    <pathelement location="${lib}" />
+    
+    <fileset dir="${lib}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <!-- Get to know the platform -->
+  
+  <!-- MS Windows -->
+  <condition property="is.windows" >
+    <os family="windows"/>
+  </condition>
+  
+  <!-- MS Windows 32 bit -->
+  <condition property="windows.library.path" value="${lib.native}/win32:${system.Path}" >
+    <and>  
+      <isset property="is.windows" />
+      <or>
+        <os arch="x86" />
+        <os arch="i386" />
+      </or>
+    </and>
+  </condition>
+
+  <!-- MS Windows 64 bit -->
+  <condition property="windows.library.path" value="${lib.native}/win64:${system.Path}" >
+    <and>
+      <isset property="is.windows" />
+      <os arch="amd64" />
+    </and>
+  </condition>
+	
+  <!-- Unix like -->
+  <condition property="is.unix" >
+    <os family="unix"/>
+  </condition>
+
+  <!-- Linux -->
+  <condition property="is.linux" >
+    <equals arg1="${os.name}" arg2="linux" casesensitive="false" trim="true" />
+  </condition>
+
+  <!-- Linux x86 -->
+  <condition property="ld.library.path" value="${lib.native}/linux-x86:${system.LD_LIBRARY_PATH}" >
+    <and>
+      <isset property="is.linux" />
+      <or>
+        <os arch="x86" />
+        <os arch="i386" />
+      </or>
+    </and>
+  </condition>
+
+  <!-- Linux x86-64 -->
+  <condition property="ld.library.path" value="${lib.native}/linux-x64:${system.LD_LIBRARY_PATH}" >
+    <and>
+      <isset property="is.linux" />
+      <os arch="amd64" />
+    </and>
+  </condition>
+
+  <!-- Mac OS X -->
+  <condition property="is.macosx" >
+    <or>
+      <os family="mac" />
+      <and>
+        <os name="Darwin" />
+        <isset property="is.unix" />
+      </and>
+    </or>
+  </condition>
+
+  <condition property="dyld.library.path" value="${lib.native}/macosx:${system.DYLD_LIBRARY_PATH}" >
+    <isset property="is.macosx" />
+  </condition>
+
+  <!-- FreeBSD -->
+  <condition property="is.freebsd" >
+    <equals arg1="${os.name}" arg2="freebsd" casesensitive="false" trim="true" />
+  </condition>
+
+  <!-- FreeBSD x86 -->
+  <condition property="ld.library.path" value="${lib.native}/freebsd-x86:${system.LD_LIBRARY_PATH}" >
+    <and>
+      <isset property="is.freebsd" />
+      <or>
+        <os arch="x86" />
+        <os arch="i386" />
+      </or>
+    </and>
+  </condition>
+
+  <!-- FreeBSD x86-64 -->
+  <condition property="ld.library.path" value="${lib.native}/freebsd-x64:${system.LD_LIBRARY_PATH}" >
+    <and>
+      <isset property="is.freebsd" />
+      <os arch="amd64" />
+    </and>
+  </condition>
+
+  <!-- Make everything -->
+  <target name="all" depends="configure,make" description="Make everything." >
+  </target>
+
+  <!-- Configure the project -->
+  <target name="configure" description="Initialize the project tree." >
+    <mkdir dir="${dst}" />
+    <mkdir dir="${dst.doc}" />
+    <mkdir dir="${dst.native}" />
+    <mkdir dir="${dst.native.linux-x86}" />
+    <mkdir dir="${dst.native.linux-x64}" />
+    <mkdir dir="${dst.native.macosx-universal}" />
+    <mkdir dir="${dst.native.win32}" />
+    <mkdir dir="${dst.native.win64}" />
+    <mkdir dir="${dst.native.freebsd-x86}" />
+    <mkdir dir="${dst.native.freebsd-x64}" />
+    <mkdir dir="${dst.test}" />
+    <mkdir dir="${junit.reports}" />
+  </target>
+
+  <!-- Build the project -->
+  <target name="make" depends="configure" description="Build the project." >
+    <javac srcdir="${src}"
+           destdir="${dst}"
+           nowarn="false"
+           deprecation="true"
+           target="1.6"
+           classpathref="project.class.path" >
+      <compilerarg value="-Xlint:all" />
+      <exclude name="**/package-info.java" />
+    </javac>
+
+    <!-- Create a jar file -->
+    <jar destfile="${app}" basedir="${dst}" >
+      <!-- Include the resources (images, ...) -->
+      <fileset dir="." >
+        <include name="${resources}/**/" />
+      </fileset>
+
+      <!-- Setup jar -->
+      <manifest>
+        <attribute name="Main-Class" value="main.Main" />
+        <attribute name="Class-Path" value="lib/commons-cli.jar lib/logback-classic.jar lib/logback-core.jar lib/slf4j-api.jar lib/xuggle-xuggler.jar" />
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- Alias for "make" target -->
+  <target name="build" depends="make" description="Build the project." />
+
+  <!-- Build the unit tests -->
+  <target name="maketest" depends="make" description="Build the unit tests." >
+    <javac srcdir="${src.test}"
+           destdir="${dst.test}"
+           nowarn="false"
+           deprecation="true"
+           classpathref="project.class.path" >
+      <compilerarg value="-Xlint" />
+    </javac>
+  </target>
+
+  <!-- Cleanup the project -->
+  <target name="clean" description="Cleanup .class and executable jar files." >
+    <delete failonerror="false" includeemptydirs="true" >
+      <fileset dir="${dst}" includes="**/*.class" />
+      <fileset dir="${dst.test}" includes="**/*.class" />
+      <fileset file="${app}" />
+    </delete>
+  </target>
+
+  <!-- Cleanup native libs -->
+  <target name="clean-native" description="Cleanup native libs." >
+  <delete failonerror="false" includeemptydirs="true" >
+    <fileset dir="${dst.native.linux-x86}" includes="**/*.so" />
+    <fileset dir="${dst.native.linux-x64}" includes="**/*.so" />
+    <fileset dir="${dst.native.freebsd-x86}" includes="**/*.so" />
+    <fileset dir="${dst.native.freebsd-x64}" includes="**/*.so" />
+    <fileset dir="${dst.native.macosx-universal}" includes="**/*.jnilib" />
+    <fileset dir="${dst.native.win32}" includes="**/*" />
+    <fileset dir="${dst.native.win64}" includes="**/*" />
+  </delete>
+  </target>
+
+  <!-- Distribution cleanup -->
+  <target name="distclean" depends="clean,clean-native" description="Cleanup everything." >
+    <delete failonerror="false" includeemptydirs="true" >
+      <fileset dir="build" />
+      <fileset dir="${dst.doc}" />
+      <fileset dir="${junit.reports}" />
+    </delete>
+  </target>
+
+  <!-- Build the javadoc -->
+  <target name="doc" description="Build the JavaDoc." >
+    <javadoc destdir="${dst.doc}" classpathref="project.class.path" 
+             overview="${src}/overview.html" author="true" 
+             version="true" private="true" use="true"
+             doctitle="${appname}" >
+      <fileset dir="${src}" >
+        <!-- <exclude name="native/**/" /> --> <!-- relative path -->
+        <exclude name="overview.html" />
+      </fileset>
+      <link href="${jdk6.api}" />
+      <link href="${xuggler.api}" />
+      <!--
+      <tag name="todo" scope="all" description="To do: " />
+      <tag name="note" scope="all" description="Note: " />
+      -->
+    </javadoc>
+  </target>
+
+  <!-- Alias for "doc" target -->
+  <target name="javadoc" depends="doc" description="Build the JavaDoc." />
+
+  <!-- Rebuild the project -->
+  <target name="rebuild" depends="distclean,make" description="Rebuild the project." />
+
+  <!-- Run the software -->
+  <target name="run" description="Run the software." >
+
+    <!--
+    <java classname="main.Main" classpath="${app}" classpathref="project.class.path" fork="yes" > 
+      -->
+
+    <!-- Integration in Mac OS X desktop like a native application -->
+    <condition property="jvmarg" value="-Dapple.laf.useScreenMenuBar=true -Xdock:name='${appname}' -Xdock:icon='${pwd}/resources/images/logo.png'" else=""> 
+      <isset property="is.macosx" />
+    </condition>
+
+    <java jar="${app}" fork="true" >
+      <sysproperty key="java.library.path" path="${java.library.path}:${windows.library.path}:${ld.library.path}:${dyld.library.path}" />
+      <sysproperty key="java.util.logging.config.file" value="lib/logging.properties" />
+     
+      <!-- native libs have to be in OS's path search -->
+      <env key="LD_LIBRARY_PATH" value="${ld.library.path}" /> <!-- Linux case -->
+      <env key="DYLD_LIBRARY_PATH" value="${dyld.library.path}" /> <!-- Mac OS X case -->
+      <env key="Path" path="${windows.library.path}" /> <!-- MS Windows case -->
+
+      <!-- Additional JVM arguments provided by some OS (i.e Mac OS X) -->
+      <jvmarg line="${jvmarg}" />
+
+      <!-- Command line arguments provided by the user --> 
+      <arg line="${args}" />
+    </java>
+  </target>
+
+  <!-- Run the unit tests -->
+  <target name="test" depends="make,maketest" description="Run the unit tests." >
+
+    <!-- Redefine project.class.path to execute unit tests -->
+    <path id="project.class.path">
+      <pathelement location="${dst}" />
+      <pathelement location="${lib}" />
+      <pathelement location="${dst.test}" />
+
+      <fileset dir="${lib}">
+        <include name="**/*.jar" />
+      </fileset>
+    </path>
+
+    <junit haltonfailure="true">
+      <formatter type="xml"/>
+      <formatter type="brief" usefile="false" />
+      <test name="${appname}TestSuite" todir="${junit.reports}" />
+      <classpath refid="project.class.path" />
+    </junit>
+  </target>
+
+</project>
+
