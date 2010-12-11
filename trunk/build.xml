@@ -180,7 +180,7 @@
 
       <!-- Setup jar -->
       <manifest>
-        <attribute name="Main-Class" value="main.Main" />
+        <attribute name="Main-Class" value="xjplayer.main.Main" />
         <attribute name="Class-Path" value="lib/commons-cli.jar lib/logback-classic.jar lib/logback-core.jar lib/slf4j-api.jar lib/xuggle-xuggler.jar" />
       </manifest>
     </jar>
@@ -260,7 +260,7 @@
   <target name="run" description="Run the software." >
 
     <!--
-    <java classname="main.Main" classpath="${app}" classpathref="project.class.path" fork="yes" > 
+    <java classname="xjplayer.main.Main" classpath="${app}" classpathref="project.class.path" fork="yes" > 
       -->
 
     <!-- Integration in Mac OS X desktop like a native application -->
@@ -302,7 +302,7 @@
     <junit haltonfailure="true">
       <formatter type="xml"/>
       <formatter type="brief" usefile="false" />
-      <test name="${appname}TestSuite" todir="${junit.reports}" />
+      <test name="xjplayer.${appname}TestSuite" todir="${junit.reports}" />
       <classpath refid="project.class.path" />
     </junit>
   </target>
