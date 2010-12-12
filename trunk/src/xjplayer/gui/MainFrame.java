@@ -35,7 +35,8 @@ import xjplayer.resources.*;
  *
  * @author Sebastien Vincent
  */
-public class MainFrame extends JFrame implements WindowListener, ActionListener
+public class MainFrame extends JFrame
+    implements WindowListener, ActionListener
 {
     /**
      * Serial version UID.
@@ -45,7 +46,8 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener
     /**
      * The logger.
      */
-    private static final Logger logger = Logger.getLogger(MainFrame.class.getName());
+    private static final Logger logger =
+        Logger.getLogger(MainFrame.class.getName());
 
     /**
      * Resource manager instance.
@@ -195,13 +197,16 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener
             try
             {
                 JPopupMenu menu = new JPopupMenu();
-                mCloseItemTray = new JMenuItem(mRes.getString("gui.menu.file.exit"));
+                mCloseItemTray = new JMenuItem(
+                        mRes.getString("gui.menu.file.exit"));
                 mCloseItemTray.addActionListener(this);
-                mPreferencesItemTray = new JMenuItem(mRes.getString("gui.menu.edit.preferences"));
+                mPreferencesItemTray = new JMenuItem(
+                        mRes.getString("gui.menu.edit.preferences"));
                 mPreferencesItemTray.addActionListener(this);
                 mHelpItemTray = new JMenuItem(mRes.getString("gui.menu.help"));
                 mHelpItemTray.addActionListener(this);
-                mAboutItemTray = new JMenuItem(mRes.getString("gui.menu.help.about"));
+                mAboutItemTray = new JMenuItem(
+                        mRes.getString("gui.menu.help.about"));
                 mAboutItemTray.addActionListener(this);
 
                 menu.add(mPreferencesItemTray);
@@ -209,7 +214,8 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener
                 menu.add(mAboutItemTray);
                 menu.add(mCloseItemTray);
 
-                mSystray = new Systray(this, mTitle, mRes.loadImage("APPLICATION_LOGO_SYSTRAY"));
+                mSystray = new Systray(this, mTitle,
+                        mRes.loadImage("APPLICATION_LOGO_SYSTRAY"));
                 mSystray.setPopupMenu(menu);
                 SystemTray.getSystemTray().add(mSystray);
                 setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -242,7 +248,8 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener
             mOpenItem.addActionListener(this);
             mCloseItem = new JMenuItem(mRes.getString("gui.menu.file.exit"));
             mCloseItem.addActionListener(this);
-            mPreferencesItem = new JMenuItem(mRes.getString("gui.menu.edit.preferences"));
+            mPreferencesItem = new JMenuItem(
+                    mRes.getString("gui.menu.edit.preferences"));
             mPreferencesItem.addActionListener(this);
             mHelpItem = new JMenuItem(mRes.getString("gui.menu.help"));
             mHelpItem.addActionListener(this);
@@ -461,4 +468,3 @@ public class MainFrame extends JFrame implements WindowListener, ActionListener
         }
     }
 }
-

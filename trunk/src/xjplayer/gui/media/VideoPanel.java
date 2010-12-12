@@ -32,7 +32,8 @@ import xjplayer.media.event.*;
  *
  * @author Sebastien Vincent
  */
-public class VideoPanel extends JPanel implements VideoListener
+public class VideoPanel extends JPanel
+    implements VideoListener
 {
     /**
      * Serial version UID.
@@ -163,4 +164,3 @@ public class VideoPanel extends JPanel implements VideoListener
         return op.filter(src, dst);
     }
 }
-

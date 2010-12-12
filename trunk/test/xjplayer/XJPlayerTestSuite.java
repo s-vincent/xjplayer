@@ -45,4 +45,3 @@ public class XJPlayerTestSuite
         return suite;
     }
 }
-

@@ -64,8 +64,11 @@ public final class Main
     public static void main(String argv[])
     {
         logger.info("Welcome to " + PROGRAM_NAME + " " + PROGRAM_VERSION);
-        logger.info("Running on " + OSUtils.getOSName() + " " + OSUtils.getOSVersion() +
-                " (" + OSUtils.getOSArch() + "-bit - " + OSUtils.getOSArchName() + ")");
+        logger.info("Running on " +
+                OSUtils.getOSName() + " " +
+                OSUtils.getOSVersion() +
+                " (" + OSUtils.getOSArch() + "-bit - " +
+                OSUtils.getOSArchName() + ")");
 
         /* register a cleanup exit point */
         Runtime.getRuntime().addShutdownHook(new CleanupThread());
@@ -109,14 +112,16 @@ public final class Main
             /* configure look and feel */
             try
             {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                UIManager.setLookAndFeel(
+                        UIManager.getSystemLookAndFeelClassName());
             }
             catch(Exception e)
             {
                 logger.warning("Could not set system look and feel");
             }
 
-            MainFrame mainFrame = new MainFrame(PROGRAM_NAME + " " + PROGRAM_VERSION);
+            MainFrame mainFrame = new MainFrame(
+                    PROGRAM_NAME + " " + PROGRAM_VERSION);
             mainFrame.setVisible(true);
             mainFrame = null;
         }
@@ -158,4 +163,3 @@ public final class Main
         }
     }
 }
-

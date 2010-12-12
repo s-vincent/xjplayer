@@ -60,4 +60,3 @@ public class XJPlayerTest extends TestCase
         assertTrue("Test", true);
     }
 }
-

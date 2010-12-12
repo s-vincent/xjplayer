@@ -37,4 +37,3 @@ public interface VideoListener
      */
     public void endOfVideo(VideoEvent event);
 }
-

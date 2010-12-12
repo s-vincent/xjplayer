@@ -31,7 +31,8 @@ import xjplayer.resources.*;
  *
  * @author Sebastien Vincent
  */
-public class AboutDialog extends JDialog implements ActionListener
+public class AboutDialog extends JDialog
+    implements ActionListener
 {
     /**
      * Serial version UID.
@@ -88,7 +89,8 @@ public class AboutDialog extends JDialog implements ActionListener
             "</html>";
 
         /* show logo */
-        panelMain.add(new JLabel(new ImageIcon(mRes.loadImage("APPLICATION_LOGO"))), BorderLayout.NORTH);
+        panelMain.add(new JLabel(new ImageIcon(
+                mRes.loadImage("APPLICATION_LOGO"))), BorderLayout.NORTH);
 
         /* text that display information about application and authors */
         mAboutTxt = new JTextPane();
@@ -122,4 +124,3 @@ public class AboutDialog extends JDialog implements ActionListener
         }
     }
 }
-

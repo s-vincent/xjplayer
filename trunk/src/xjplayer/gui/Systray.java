@@ -29,8 +29,8 @@ import javax.swing.event.*;
  *
  * @author Sebastien Vincent
  */
-public final class Systray extends TrayIcon implements MouseListener,
-       MouseMotionListener
+public final class Systray extends TrayIcon
+    implements MouseListener, MouseMotionListener
 {
     /**
      * Popup menu for the systray.
@@ -48,8 +48,8 @@ public final class Systray extends TrayIcon implements MouseListener,
     /**
      * Invoker for the systray.
      *
-     * This is used as a hack to correctly disapear JPopupMenu
-     * when clicking other part than the sytray.
+     * This is used as a hack to correctly hide JPopupMenu when clicking other
+     * part than the systray.
      * Based on http://weblogs.java.net/blog/alexfromsun/archive/2008/02/jtrayicon_updat.html
      * page.
      */
@@ -160,11 +160,15 @@ public final class Systray extends TrayIcon implements MouseListener,
     public void mouseClicked(MouseEvent event)
     {
         /* left single click we hide/activate frame */
-        if(!event.isPopupTrigger() && event.getClickCount() == 1 && !mPopupMenu.isVisible())
+        if(!event.isPopupTrigger() && event.getClickCount() == 1 &&
+                !mPopupMenu.isVisible())
         {
-            if((mFrame.getExtendedState() & Frame.ICONIFIED) > 0 || !mFrame.isVisible())
+            if((mFrame.getExtendedState() & Frame.ICONIFIED) > 0 ||
+                    !mFrame.isVisible())
             {
-                /* frame is iconified or not visible, back on top and focus it */
+                /* frame is iconified or not visible, back on top and focus
+                 * it
+                 */
                 mIsFrameActive = true;
                 mFrame.setExtendedState(Frame.NORMAL);
                 mFrame.toFront();
@@ -313,4 +317,3 @@ public final class Systray extends TrayIcon implements MouseListener,
         displayMessage(mTitle, msg, TrayIcon.MessageType.NONE);
     }
 }
-

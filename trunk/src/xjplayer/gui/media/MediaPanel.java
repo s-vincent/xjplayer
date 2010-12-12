@@ -38,8 +38,8 @@ import xjplayer.resources.*;
  *
  * @author Sebastien Vincent
  */
-public class MediaPanel extends JPanel implements ActionListener,
-       ChangeListener, VideoListener
+public class MediaPanel extends JPanel
+    implements ActionListener, ChangeListener, VideoListener
 {
     /**
      * Serial version UID.
@@ -54,17 +54,20 @@ public class MediaPanel extends JPanel implements ActionListener,
     /**
      * Icon of the play button.
      */
-    private static final Icon mIconPlay = new ImageIcon(mRes.loadImage("MEDIA_CONTROL_PLAY"));
+    private static final Icon mIconPlay = new ImageIcon(
+            mRes.loadImage("MEDIA_CONTROL_PLAY"));
 
     /**
      * Icon of the pause button.
      */
-    private static final Icon mIconPause = new ImageIcon(mRes.loadImage("MEDIA_CONTROL_PAUSE"));
+    private static final Icon mIconPause = new ImageIcon(
+            mRes.loadImage("MEDIA_CONTROL_PAUSE"));
 
     /**
      * Icon of the stop button.
      */
-    private static final Icon mIconStop = new ImageIcon(mRes.loadImage("MEDIA_CONTROL_STOP"));
+    private static final Icon mIconStop = new ImageIcon(
+            mRes.loadImage("MEDIA_CONTROL_STOP"));
 
     /**
      * Media control that will interact with MediaCore to
@@ -459,7 +462,8 @@ public class MediaPanel extends JPanel implements ActionListener,
             {
                 /* compute current media time */
                 mControl.seek(mSliderSeek.getValue());
-                mLastSeekTime = (mControl.getDuration() * mSliderSeek.getValue()) / 100;
+                mLastSeekTime =
+                    (mControl.getDuration() * mSliderSeek.getValue()) / 100;
             }
         }
     }
@@ -480,4 +484,3 @@ public class MediaPanel extends JPanel implements ActionListener,
         mFullScreen = fullscreen;
     }
 }
-

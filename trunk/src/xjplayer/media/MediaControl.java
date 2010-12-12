@@ -366,7 +366,8 @@ public class MediaControl
         {
             // get the raw audio byes and adjust it's value
 
-            ShortBuffer buffer = event.getAudioSamples().getByteBuffer().asShortBuffer();
+            ShortBuffer buffer = event.getAudioSamples().getByteBuffer().
+                asShortBuffer();
             for (int i = 0; i < buffer.limit(); ++i)
                 buffer.put(i, (short)(buffer.get(i) * mVolume));
 
@@ -376,4 +377,3 @@ public class MediaControl
         }
     }
 }
-

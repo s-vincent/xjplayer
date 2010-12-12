@@ -30,7 +30,8 @@ import xjplayer.resources.*;
  *
  * @author Sebastien Vincent
  */
-public class ConfigurationDialog extends JDialog implements ActionListener
+public class ConfigurationDialog extends JDialog
+    implements ActionListener
 {
     /**
      * Serial version UID.
@@ -111,4 +112,3 @@ public class ConfigurationDialog extends JDialog implements ActionListener
         }
     }
 }
-

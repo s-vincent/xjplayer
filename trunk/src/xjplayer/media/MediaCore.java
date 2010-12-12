@@ -40,8 +40,7 @@ import static java.util.concurrent.TimeUnit.MICROSECONDS;
 import xjplayer.media.event.*;
 
 /**
- * Multimedia core class that is able to decode and play audio
- * and video.
+ * Multimedia core class that is able to decode and play audio and video.
  *
  * Parts of the code are taken from Xuggler's MediaViewer.
  *
@@ -53,7 +52,8 @@ public class MediaCore extends MediaListenerAdapter
     /**
      * The logger.
      */
-    private static final Logger logger = Logger.getLogger(MediaCore.class.getName());
+    private static final Logger logger =
+        Logger.getLogger(MediaCore.class.getName());
 
     /**
      * The capacity (in time) of media buffers.
@@ -251,14 +251,16 @@ public class MediaCore extends MediaListenerAdapter
             throw new UnsupportedOperationException();
 
         AudioQueue queue = mAudioQueues.get(streamIndex);
-        IStream stream = ((IMediaCoder)tool).getContainer().getStream(streamIndex);
+        IStream stream = ((IMediaCoder)tool).getContainer().
+            getStream(streamIndex);
         SourceDataLine line = getJavaSoundLine(stream);
 
         // if no queue (and there is a line), create the queue
 
         if(null == queue && line != null)
         {
-            queue = new AudioQueue(mAudioQueueCapacity, TIME_UNIT, stream, line);
+            queue = new AudioQueue(mAudioQueueCapacity, TIME_UNIT, stream,
+                    line);
             mAudioQueues.put(streamIndex, queue);
         }
 
@@ -299,13 +301,17 @@ public class MediaCore extends MediaListenerAdapter
         {
             try
             {
-                // estabish the audio format, NOTE: xuggler defaults to signed 16 bit
-                // samples
+                // estabish the audio format, NOTE: xuggler defaults to signed
+                //16 bit samples
 
-                AudioFormat audioFormat = new AudioFormat(audioCoder.getSampleRate(),
+                AudioFormat audioFormat = new AudioFormat(
+                        audioCoder.getSampleRate(),
                         (int) IAudioSamples
-                        .findSampleBitDepth(audioCoder.getSampleFormat()), audioCoder
-                        .getChannels(), true, false);
+                        .findSampleBitDepth(audioCoder.getSampleFormat()),
+                        audioCoder
+                        .getChannels(),
+                        true,
+                        false);
 
                 // create the audio line out
 
@@ -365,7 +371,8 @@ public class MediaCore extends MediaListenerAdapter
         {
             BufferedImage image = converter.toImage(picture);
 
-            NewImageEvent evt = new NewImageEvent(this, image, picture.getTimeStamp());
+            NewImageEvent evt = new NewImageEvent(this, image,
+                    picture.getTimeStamp());
 
             /* notify listeners */
             fireNewImageEvent(evt);
@@ -558,7 +565,8 @@ public class MediaCore extends MediaListenerAdapter
         // enqueue the audio samples
 
         if(queue != null)
-            queue.offerMedia(samples, event.getTimeStamp(), event.getTimeUnit());
+            queue.offerMedia(samples, event.getTimeStamp(),
+                    event.getTimeUnit());
     }
 
     /**
@@ -639,12 +647,10 @@ public class MediaCore extends MediaListenerAdapter
         /**
          * Construct queue and activate it's internal thread.
          *
-         * @param capacity
-         *          the total duraiton of media stored in the queue
-         * @param unit
-         *          the time unit of the capacity (MILLISECONDS, MICROSECONDS, etc).
-         * @param streamIndex
-         *          index of the stream
+         * @param capacity the total duraiton of media stored in the queue
+         * @param unit the time unit of the capacity (MILLISECONDS,
+         * MICROSECONDS, etc).
+         * @param streamIndex index of the stream
          */
         public VideoQueue(long capacity, TimeUnit unit, int streamIndex)
         {
@@ -776,7 +782,8 @@ public class MediaCore extends MediaListenerAdapter
                             {
                                 // while not done, and no item, wait for one
 
-                                while(!mDone && (delayedItem = mQueue.poll()) == null)
+                                while(!mDone &&
+                                        (delayedItem = mQueue.poll()) == null)
                                 {
                                     try
                                     {
@@ -981,7 +988,8 @@ public class MediaCore extends MediaListenerAdapter
                 // is draied below it's capacity
 
                 while(!mDone && !mQueue.isEmpty()
-                        && (convertedTime - mQueue.peek().getTimeStamp()) > mCapacity)
+                        && (convertedTime - mQueue.peek().
+                                getTimeStamp()) > mCapacity)
                 {
                     try
                     {
@@ -1008,8 +1016,8 @@ public class MediaCore extends MediaListenerAdapter
 
                     // put a COPY on the queue
 
-                    mQueue.offer(new DelayedItem<IMediaData>(item.copyReference(),
-                                convertedTime));
+                    mQueue.offer(new DelayedItem<IMediaData>(
+                            item.copyReference(), convertedTime));
 
                     // debug("2     queue[%2d]: %s[%5d]",
                     // size(),
@@ -1093,4 +1101,3 @@ public class MediaCore extends MediaListenerAdapter
         }
     }
 }
-
