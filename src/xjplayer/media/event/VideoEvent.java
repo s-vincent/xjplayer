@@ -41,4 +41,3 @@ public class VideoEvent extends EventObject
         super(source);
     }
 }
-

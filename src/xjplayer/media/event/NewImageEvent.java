@@ -73,4 +73,3 @@ public class NewImageEvent extends VideoEvent
         return mPts;
     }
 }
-

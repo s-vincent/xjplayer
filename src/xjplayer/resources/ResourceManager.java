@@ -38,7 +38,8 @@ public class ResourceManager
     /**
      * The logger.
      */
-    private static final Logger logger = Logger.getLogger(ResourceManager.class.getName());
+    private static final Logger logger =
+        Logger.getLogger(ResourceManager.class.getName());
 
     /**
      * Locale for internationalization.
@@ -78,11 +79,13 @@ public class ResourceManager
          */
         try
         {
-            mBundleI18n = ResourceBundle.getBundle("resources.i18n." + mLocale.getLanguage(), mLocale);
+            mBundleI18n = ResourceBundle.getBundle(
+                    "resources.i18n." + mLocale.getLanguage(), mLocale);
         }
         catch(Exception e)
         {
-            mBundleI18n = ResourceBundle.getBundle("resources.i18n.default", mLocale);
+            mBundleI18n =
+                ResourceBundle.getBundle("resources.i18n.default", mLocale);
         }
     }
 
@@ -111,7 +114,8 @@ public class ResourceManager
         try
         {
             String imgPath = mBundleImg.getString(name);
-            img = Toolkit.getDefaultToolkit().getImage(ResourceManager.class.getResource(imgPath));
+            img = Toolkit.getDefaultToolkit().getImage(
+                    ResourceManager.class.getResource(imgPath));
         }
         catch(Exception e)
         {
@@ -134,7 +138,7 @@ public class ResourceManager
 
         try
         {
-            mBundleSound.getString(name);
+            snd = mBundleSound.getString(name);
 
             if(snd == null)
             {
@@ -192,4 +196,3 @@ public class ResourceManager
         return str;
     }
 }
-

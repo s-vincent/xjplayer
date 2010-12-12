@@ -30,7 +30,8 @@ import xjplayer.resources.*;
  *
  * @author Sebastien Vincent
  */
-public class HelpDialog extends JDialog implements ActionListener
+public class HelpDialog extends JDialog
+    implements ActionListener
 {
     /**
      * Serial version UID.
@@ -98,4 +99,3 @@ public class HelpDialog extends JDialog implements ActionListener
         }
     }
 }
-

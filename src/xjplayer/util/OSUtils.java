@@ -81,7 +81,8 @@ public class OSUtils
         else
         {
             /* OK try to guess it */
-            mOSArch = (mOSArchName.contains("64") || mOSArchName.startsWith("alpha")) ? "64" : "32";
+            mOSArch = (mOSArchName.contains("64") ||
+                    mOSArchName.startsWith("alpha")) ? "64" : "32";
         }
     }
     /**
@@ -155,4 +156,3 @@ public class OSUtils
         return mIsFreeBSD;
     }
 }
-

@@ -91,4 +91,3 @@ public final class LogFormatter extends java.util.logging.Formatter
         return buf.toString();
     }
 }
-
